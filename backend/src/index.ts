@@ -11,7 +11,7 @@ import * as swaggerDocument from '../src/swagger/openapi.json';
 import cors from 'cors';
 
 dotenv.config(); // подключаем .env файл с константами
-const logger = log4js.getLogger(); // подключаем логирование 
+const logger = log4js.getLogger(); // подключаем логирование
 logger.level = process.env.LOG_LEVEL;
 
 const port = process.env.PORT; // задаём порт
@@ -22,7 +22,7 @@ app.use(httpContext.middleware);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(cors() as RequestHandler);
 
-useExpressServer(app, { 
+useExpressServer(app, {
   controllers: [UserController],
   middlewares: [GlobalErrorHandler],
   defaultErrorHandler: false
