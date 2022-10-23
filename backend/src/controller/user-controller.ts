@@ -2,7 +2,7 @@ import { Body, Controller, Get, OnUndefined, Param, Post, UseAfter, UseBefore } 
 import 'reflect-metadata';
 import { loggingAfter, loggingBefore } from '../middleware/middleware';
 import { Info, RegistrationFormModel } from '../model/info';
-import { makeNewUser } from '../databaseModel/databaseConnection';
+import { getAllUsers, makeNewUser } from '../databaseModel/databaseConnection';
 
 @Controller()
 @UseBefore(loggingBefore)
@@ -10,14 +10,8 @@ import { makeNewUser } from '../databaseModel/databaseConnection';
 export class UserController {
   @Get('/') // get запрос с параметром id(число)
   getOne () {
-    console.log('Doing something in Get function');
-    return 'You see home page';
-  }
-
-  @Post('/users/:id') // post запрос с параметром id(число) и обработкой тела запроса
-  @OnUndefined(204)
-  postOne (@Param('id') id: number, @Body() info: Info) {
-    console.log(JSON.stringify(info));
+    //getAllUsers();
+    return `here is home page`
   }
 
   @Post('/registration')
