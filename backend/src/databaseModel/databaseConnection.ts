@@ -8,8 +8,8 @@ const pool = mysql.createPool({
 }).promise();
 
 export async function getAllUsers () {
-    const responseFromDbGetAllUsers = await pool.query('SELECT * FROM usersdata');
-    console.log(responseFromDbGetAllUsers[0]);
+  const responseFromDbGetAllUsers = await pool.query('SELECT * FROM usersdata');
+  console.log(responseFromDbGetAllUsers[0]);
 }
 
 export async function makeNewUser (registrationFormData) { // регистрация для Исполнителя
