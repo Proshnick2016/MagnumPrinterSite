@@ -1,12 +1,11 @@
 import { Body, Controller, Get, OnUndefined, Post, UseAfter, UseBefore } from 'routing-controllers';
 import 'reflect-metadata';
-import { loggingAfter, loggingBefore } from '../middleware/middleware';
+import { loggingBefore } from '../middleware/middleware';
 import { RegistrationFormModel } from '../model/info';
-import { getAllUsers, makeNewUser } from '../databaseModel/databaseConnection';
+import { makeNewUser, getAllUsers } from './databaseConnection';
 
 @Controller()
 @UseBefore(loggingBefore)
-@UseAfter(loggingAfter)
 export class UserController {
   @Get('/') // get запрос с параметром id(число)
   getHomePage () { // просто названи функции

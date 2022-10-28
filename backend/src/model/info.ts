@@ -1,12 +1,5 @@
 import { IsDefined, IsEmail, MinLength, MaxLength } from 'class-validator';
 
-export class Info { // тестовый шаблом для тела post запроса
-  @IsDefined()
-    country: string;
-
-  @IsDefined({ message: 'you should write city field' })
-    city: string;
-}
 // посмотреть на isDefined, может надо прописать другой параметр
 export class RegistrationFormModel {
   @MinLength(1, { message: "Поле 'Имя' должно быть заполнено" })
