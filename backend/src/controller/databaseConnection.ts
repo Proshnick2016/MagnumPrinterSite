@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 import { initModels } from '../databaseModels/init-models';
-import { Usersdata } from '../databaseModels/usersdata';
+import { Executor } from '../databaseModels/executor';
+import { UserDefaultData } from '../databaseModels/user_default_data';
 import Serializer from 'sequelize-to-json';
 
 const dbModel = new Sequelize({
@@ -9,28 +10,36 @@ const dbModel = new Sequelize({
   username: 'root',
   database: 'magnoomusers',
   password: 'Qwerty@1',
-  timezone: "+00:00"
+  timezone: '+00:00'
 });
 
 initModels(dbModel);
-
 export async function getAllUsers () { // получение всех пользователей (Сделано для теста подключения)
   dbModel.authenticate();
-  const getAllUsersDbArray = await Usersdata.findAll();
-  const getAllUsersDataRes = Serializer.serializeMany(getAllUsersDbArray, Usersdata);
+  
+  const getAllUsersDbArray = await UserDefaultData.findAll();
+  const getAllUsersDataRes = Serializer.serializeMany(getAllUsersDbArray, UserDefaultData);
   console.log(getAllUsersDataRes);
-  dbModel.close();
 }
 
-export async function makeNewUser (registrationFormData) { // регистрация для Исполнителя
+export async function createNewUser (registrationFormData) { // регистрация для Исполнителя
   dbModel.authenticate();
-  
-  const createNewUserDb = await Usersdata.create({
-    name: registrationFormData.userName,
-    password: registrationFormData.userPassword, 
+  return await UserDefaultData.create({
+    username: registrationFormData.userName,
+    password: registrationFormData.userPassword,
     email: registrationFormData.userEmail,
-    city: registrationFormData.userCity,
-    printerType: registrationFormData.userPrinterType
+    city: registrationFormData.userCity
   });
-  dbModel.close();
+}
+
+export async function createNewExecutor (registrationFormData) {
+  dbModel.authenticate();
+  const resDbToCreateNewUser = await createNewUser(registrationFormData);
+
+  const newUserObjUserId = (resDbToCreateNewUser).toJSON();
+
+  await Executor.create({
+    executor_id: newUserObjUserId.user_id,
+    printer_model: registrationFormData.userPrinterModel
+  });
 }

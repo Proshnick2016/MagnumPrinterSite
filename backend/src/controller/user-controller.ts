@@ -1,8 +1,8 @@
-import { Body, Controller, Get, OnUndefined, Post, UseAfter, UseBefore } from 'routing-controllers';
+import { Body, Controller, Get, OnUndefined, Post, UseBefore } from 'routing-controllers';
 import 'reflect-metadata';
 import { loggingBefore } from '../middleware/middleware';
-import { RegistrationFormModel } from '../model/info';
-import { makeNewUser, getAllUsers } from './databaseConnection';
+import { UserRegistrationFormModel, ExecutorRegistrationFormModel } from '../model/info';
+import { createNewUser, getAllUsers, createNewExecutor } from './databaseConnection';
 
 @Controller()
 @UseBefore(loggingBefore)
@@ -13,10 +13,17 @@ export class UserController {
     return 'here is home page';
   }
 
-  @Post('/registration')
+  @Post('/executor-registration')
   @OnUndefined(204)
-  postForRegistrUser (@Body() RegistrationFormClientSide: RegistrationFormModel) {
-    const responseFromDbAboutMakeNewUser = makeNewUser(RegistrationFormClientSide);
-    console.log(JSON.stringify(responseFromDbAboutMakeNewUser));
+  postForRegistrExecutor (@Body() RegistrationFormClientSide: ExecutorRegistrationFormModel) {
+    const resFromDbCreateNewExecutor = createNewExecutor(RegistrationFormClientSide);
+    console.log(JSON.stringify(resFromDbCreateNewExecutor));
+  }
+
+  @Post('/user-registration')
+  @OnUndefined(204)
+  postForRegistrUser (@Body() RegistrationFormClientSide: UserRegistrationFormModel) {
+    const resFromDbCreateNewUser = createNewUser(RegistrationFormClientSide);
+    console.log(JSON.stringify(resFromDbCreateNewUser));
   }
 }

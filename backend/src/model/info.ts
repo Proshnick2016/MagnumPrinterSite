@@ -1,9 +1,9 @@
-import { IsDefined, IsEmail, MinLength, MaxLength } from 'class-validator';
+import { IsDefined, IsEmail, MaxLength, IsNotEmpty, MinLength } from 'class-validator';
 
 // посмотреть на isDefined, может надо прописать другой параметр
-export class RegistrationFormModel {
-  @MinLength(1, { message: "Поле 'Имя' должно быть заполнено" })
-  @MaxLength(255, { message: 'Количество символов в поле не должно превышать значения 255' })
+export class UserRegistrationFormModel {
+  @IsNotEmpty({ message: "Поле 'Имя' должно быть заполнено" })
+  @MaxLength(30, { message: 'Количество символов в поле не должно превышать значения 30' })
     userName: string;
 
   @IsDefined({ message: "Поле 'Пароль' должно быть заполнено" })
@@ -12,15 +12,17 @@ export class RegistrationFormModel {
     userPassword: string;
 
   @IsEmail()
-  @MinLength(1, { message: "Поле 'Email' должно быть заполнено" })
-  @MaxLength(255, { message: 'Количество символов в поле не должно превышать значения 255' })
+  @IsNotEmpty({ message: "Поле 'Email' должно быть заполнено" })
+  @MaxLength(30, { message: 'Количество символов в поле не должно превышать значения 30' })
     userEmail: string;
 
-  @MinLength(1, { message: "Поле 'Город' должно быть заполнено" })
-  @MaxLength(255, { message: 'Количество символов в поле не должно превышать значения 255' })
+  @IsNotEmpty({ message: "Поле 'Город' должно быть заполнено" })
+  @MaxLength(30, { message: 'Количество символов в поле не должно превышать значения 30' })
     userCity: string;
+}
 
-  @MinLength(1, { message: "Поле 'Модель Принтера' должно быть заполнено" })
-  @MaxLength(255, { message: 'Количество символов в поле не должно превышать значения 255' })
-    userPrinterType: string;
+export class ExecutorRegistrationFormModel extends UserRegistrationFormModel {
+  @IsNotEmpty({ message: "Поле 'Модель Принтера' должно быть заполнено" })
+  @MaxLength(30, { message: 'Количество символов в поле не должно превышать значения 30' })
+    userPrinterModel: string;
 }
