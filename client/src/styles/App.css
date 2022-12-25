@@ -1,0 +1,31 @@
+.App {
+  text-align: center;
+}
+
+body{
+  background-image: url('../photos/NeonGreen.png');
+}
+
+.siteName{
+  font-size: 50px;
+  color: rgb(245, 224, 224);
+  margin-top: -2%;
+}
+
+.siteDescription{
+  font-size: 20px;
+  color: rgb(245, 224, 224);
+}
+
+.centerText{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.registrationDiv{
+  display: flex;
+  flex-direction:row;
+}

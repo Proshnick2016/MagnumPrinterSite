@@ -16,7 +16,7 @@ const dbModel = new Sequelize({
 initModels(dbModel);
 export async function getAllUsers () { // получение всех пользователей (Сделано для теста подключения)
   dbModel.authenticate();
-  
+
   const getAllUsersDbArray = await UserDefaultData.findAll();
   const getAllUsersDataRes = Serializer.serializeMany(getAllUsersDbArray, UserDefaultData);
   console.log(getAllUsersDataRes);
