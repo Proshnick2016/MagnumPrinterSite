@@ -16,10 +16,9 @@ export class UserController {
   @Post('/executor-registration')
   @OnUndefined(204)
   postForRegistrExecutor (@Body() RegistrationFormClientSide: ExecutorRegistrationFormModel) {
-    console.log('Accept')
     createNewExecutor(RegistrationFormClientSide);
   }
-
+  
   @Post('/user-registration')
   @OnUndefined(204)
   postForRegistrUser (@Body() RegistrationFormClientSide: UserRegistrationFormModel) {
