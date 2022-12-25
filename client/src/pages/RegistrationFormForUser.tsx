@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import '../styles/RegistrationFormForUser.css';
 import axios from 'axios';
 
 function RegistrationFormForUser(){
+
+  axios.defaults.withCredentials = true;
+
   const [email, setEmail] = React.useState('');
   const [password, setPass] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [username, setName] = React.useState('');
   const [city, setCity] = React.useState('')
   
   const handleSubmit_user = (e:any) => {
       e.preventDefault();
-      axios.post('http://localhost:8000', {
-        userName: name,
-        userPassword: password,
-        userEmail: email,
-        userCity: city
+      axios.post('http://localhost:8000/user-registration', {
+        username,
+        password,
+        email,
+        city,
     })
     .then(function (response) {
       console.log(response);
@@ -35,7 +38,7 @@ function RegistrationFormForUser(){
           <form className="register-form-user" onSubmit={handleSubmit_user}>
 
             <label htmlFor="name">Логин</label>
-            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Логин" />
+            <input value={username} name="username" onChange={(e) => setName(e.target.value)} id="username" placeholder="Логин" />
 
             <label htmlFor="email">Email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="Email" id="email" name="email" />

@@ -3,21 +3,23 @@ import React from 'react';
 import '../styles/RegistrationFormForExecutor.css';
 
 function RegistrationFormForExecutor() {
+  
+  axios.defaults.withCredentials = true;
 
   const [email, setEmail] = React.useState('');
   const [password, setPass] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [username, setName] = React.useState('');
   const [city, setCity] = React.useState('');
   const [printer_model, setPrinter_model] = React.useState('');
 
   const handleSubmit_executor = (e:any) => {
       e.preventDefault();
-      axios.post('http://localhost:8000', {
-        userName: name,
-        userPassword: password,
-        userEmail: email,
-        userCity: city,
-        userPrinterModel: printer_model
+      axios.post('http://localhost:8000/executor-registration', {
+        username,
+        password,
+        email,
+        city,
+        printer_model,
       })
       .then(function (response) {
         console.log(response);
@@ -39,8 +41,8 @@ function RegistrationFormForExecutor() {
           
           <form className="register-form-executor" onSubmit={handleSubmit_executor}>
 
-            <label htmlFor="name">Логин</label>
-            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Логин" />
+            <label htmlFor="username">Логин</label>
+            <input value={username} name="username" onChange={(e) => setName(e.target.value)} id="username" placeholder="Логин" />
 
             <label htmlFor="email">Email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="Email" id="email" name="email" />
