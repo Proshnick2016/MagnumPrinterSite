@@ -1,26 +1,63 @@
-import React from 'react';
-import '../styles/RegistrationForm.css';
+import React, { useState } from "react";
+import '../styles/RegistrationFormForUser.css';
+import axios from 'axios';
 
-class RegistrationFormForUser extends React.Component {
-  render() {
+function RegistrationFormForUser(){
+  const [email, setEmail] = React.useState('');
+  const [password, setPass] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [city, setCity] = React.useState('')
+  
+  const handleSubmit_user = (e:any) => {
+      e.preventDefault();
+      axios.post('http://localhost:8000', {
+        userName: name,
+        userPassword: password,
+        userEmail: email,
+        userCity: city
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+       console.log(error);
+    });
+  }
+
     return (
       <div>
-        <input type="checkbox" id="side-checkbox" />
+        <input type="checkbox" id="side-checkbox-user" />
         
-        <div className="side-panel">
-          <label className="side-button-2" htmlFor="side-checkbox">+</label>
-          <div className="side-title">Выдвижная панель:</div>
-          <p>Информация в панеле</p>
+        <div className="side-panel-user">
+          <label className="side-button-2-user" htmlFor="side-checkbox-user">+</label>
+          <div className="side-title-user">Регистрация заказчика</div>
+          
+          <form className="register-form-user" onSubmit={handleSubmit_user}>
+
+            <label htmlFor="name">Логин</label>
+            <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Логин" />
+
+            <label htmlFor="email">Email</label>
+            <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="Email" id="email" name="email" />
+
+            <label htmlFor="password">Пароль</label>
+            <input value={password} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+
+            <label htmlFor="city">Город</label>
+            <input value={city} name="city" onChange={(e) => setCity(e.target.value)} id="city" placeholder="Ваш город" />
+
+            <button className="submitButton-user" type="submit">Зарегистрироваться</button>
+        </form>
+        
         </div>
 
-        <div className="side-button-1-wr">
-          <label className="side-button-1" htmlFor="side-checkbox">
-            <div className="side-b side-open">Регистрация для заказчика</div>
+        <div className="side-button-1-wr-user">
+          <label className="side-button-1-user" htmlFor="side-checkbox-user">
+            <div className="side-b-user side-open-user">Регистрация для заказчика</div>
           </label>
         </div>
       </div>
     );
-  }
 }
 
 export default RegistrationFormForUser;
