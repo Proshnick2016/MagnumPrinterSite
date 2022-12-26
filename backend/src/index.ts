@@ -20,7 +20,10 @@ const app: Express = express();
 app.use(bodyParser.json()); // подключение модулей к приложению
 app.use(httpContext.middleware);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use(cors() as RequestHandler);
+
+app.use(cors(({
+  origin: '*'
+})));
 
 useExpressServer(app, {
   controllers: [UserController],

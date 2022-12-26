@@ -18,7 +18,7 @@ export class UserController {
   postForRegistrExecutor (@Body() RegistrationFormClientSide: ExecutorRegistrationFormModel) {
     createNewExecutor(RegistrationFormClientSide);
   }
-  
+
   @Post('/user-registration')
   @OnUndefined(204)
   postForRegistrUser (@Body() RegistrationFormClientSide: UserRegistrationFormModel) {

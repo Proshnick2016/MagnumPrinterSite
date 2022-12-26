@@ -12,7 +12,6 @@ function RegistrationFormForUser(){
   const [city, setCity] = React.useState('')
   
   const handleSubmit_user = (e:any) => {
-      e.preventDefault();
       axios.post('http://localhost:8000/user-registration', {
         username,
         password,
